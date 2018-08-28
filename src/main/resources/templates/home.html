@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <meta content="text/html;charset=UTF-8"/>
+    <title sec:authentication="name"></title>
+    <style type="text/css">
+        body {
+            padding-top: 50px;
+        }
+        .starter-template {
+            padding: 40px 15px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<!-- 参考原文链接: https://blog.csdn.net/u012373815/article/details/54632176-->
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">Spring Security演示</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li><a th:href="@{/}"> 首页 </a></li>
+                <li><a th:href="@{/admin}"> admin </a></li>
+            </ul>
+        </div><!--/.nav-collapse -->
+    </div>
+</nav>
+
+
+<div class="container">
+
+    <div class="starter-template">
+        <h1 th:text="${msg.title}"></h1>
+        <p class="bg-primary" th:text="${msg.content}"></p>
+        <h1>用户为:<span sec:authentication="name"></span></h1>
+        <div sec:authorize="hasRole('ROLE_ADMIN')"> <!-- 用户类型为ROLE_ADMIN 显示 -->
+            <p class="bg-info" th:text="'用户类型为ROLE_ADMIN'+${msg.etraInfo}"></p>
+        </div>
+        <div sec:authorize="hasRole('ROLE_NEWROLE')"> <!-- 用户类型为 ROLE_USER 显示 -->
+            <p class="bg-info">这是ROLE_NEWROLE才会显示</p>
+        </div>
+
+        <div sec:authorize="hasRole('ROLE_USER')"> <!-- 用户类型为 ROLE_USER 显示 -->
+            <p class="bg-info">这是用户类型为 ROLE_USER</p>
+        </div>
+
+        <form th:action="@{/logout}" method="post">
+            <input type="submit" class="btn btn-primary" value="注销"/>
+        </form>
+    </div>
+    <hr/>
+    <input value="get请求" id="get" type="button"/>
+    <input value="post请求" id="post" type="button"/>
+    <input value="put请求" id="put" type="button"/>
+</div>
+<script type="text/javascript" src="js/jquery.min.js" th:src="@{/js/jquery.min.js}"></script>
+<script>
+    function requestForUser(restType) {
+        var type='GET';
+        if(restType == 'post'){
+            type='POST';
+        }else if(restType == 'put'){
+            type='PUT';
+        }
+        $.ajax({url:"user"
+            ,type:type
+            ,dataType:'text'
+            ,success:function(result){
+                alert(result);
+            }});
+    }
+    $("#get").click(function () {
+        requestForUser('get');
+    });
+    $("#post").click(function () {
+        requestForUser('post');
+    });
+    $("#put").click(function () {
+        requestForUser('put');
+    });
+</script>
+
+
+
+</body>
+</html>
