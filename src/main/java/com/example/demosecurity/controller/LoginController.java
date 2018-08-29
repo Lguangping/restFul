@@ -20,6 +20,11 @@ public class LoginController {
         return "login";
     }
 
+    @GetMapping(path = "/sample/sample-crud")
+    public String sampleCurd() {
+        return "sample-crud";
+    }
+
     @RequestMapping(path = {"home", "home.html"}, method = RequestMethod.GET)
     public String aaindex(Model model){
         Msg msg =  new Msg("测试标题", "测试内容", "额外信息，只对管理员显示");

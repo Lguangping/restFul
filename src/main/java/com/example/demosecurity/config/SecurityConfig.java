@@ -3,7 +3,7 @@ package com.example.demosecurity.config;
 import static org.springframework.security.crypto.factory.PasswordEncoderFactories.createDelegatingPasswordEncoder;
 
 import com.example.demosecurity.service.CustomUserService;
-import com.example.demosecurity.service.MyFilterSecurityInterceptor;
+import com.example.demosecurity.securityUtil.MyFilterSecurityInterceptor;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

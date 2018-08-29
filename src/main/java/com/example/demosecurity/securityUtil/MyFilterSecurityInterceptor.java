@@ -1,4 +1,4 @@
-package com.example.demosecurity.service;
+package com.example.demosecurity.securityUtil;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.SecurityMetadataSource;

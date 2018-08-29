@@ -4,6 +4,7 @@ package com.example.demosecurity.service;
 import com.example.demosecurity.domain.Permission;
 import com.example.demosecurity.domain.SysRole;
 import com.example.demosecurity.domain.SysUser;
+import com.example.demosecurity.securityUtil.MyGrantedAuthority;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;

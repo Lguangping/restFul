@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <meta content="text/html;charset=UTF-8"/>
+    <title sec:authentication="name"></title>
+    <style type="text/css">
+        body {
+            padding-top: 50px;
+        }
+        .starter-template {
+            padding: 40px 15px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<!-- 参考原文链接: https://blog.csdn.net/u012373815/article/details/54632176-->
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">sampleRestFulCRUD演示</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li><a th:href="@{/home}"> 首页 </a></li>
+                <li><a href="#"> restFUl crud demo </a></li>
+            </ul>
+        </div><!--/.nav-collapse -->
+    </div>
+</nav>
+
+
+<div class="container">
+
+    <div class="starter-template">
+        <hr/>
+        <input value="post请求" id="post" type="button"/>
+        <hr/>
+        <input value="get请求" id="get" type="button"/>
+        <hr/>
+        <input value="put请求" id="put" type="button"/>
+        <hr/>
+        <input value="patch请求" id="patch" type="button"/>
+        <hr/>
+        <input value="delete请求" id="delete" type="button"/>
+        <hr/>
+    </div>
+
+</div>
+<script type="text/javascript" src="js/jquery.min.js" th:src="@{/js/jquery.min.js}"></script>
+<script>
+    function requestForUser(restType) {
+        var type='GET';
+        var url='user';
+        var data=new Object();
+        if(restType == 'post'){
+            type='POST';
+            data['id']=1;
+            data['username']='admin用户';
+            data['password']='aa123';
+            data['roles']=new Array();
+        }else if(restType == 'put'){
+            type='PUT';
+            data['id']=2;
+            data['username']='put之后的用户';
+            data['password']='aa123';
+            data['roles']=new Array();
+            url +='/1';
+        }else if(restType == 'patch'){
+            data['username']='新的用户名';
+            type='PATCH';
+            url +='/1';
+        }else if(restType == 'delete'){
+            type='DELETE';
+            url +='/1';
+        }else if(restType == 'get'){
+            type='GET';
+            url +='/1';
+            $.ajax({url:url
+                       ,type:type
+                       ,contentType:'application/json'
+                       ,success:function(result){
+                    console.log(result);
+                    alert(JSON.stringify(result));
+                }});
+            return;
+        }
+        $.ajax({url:url
+            ,data:JSON.stringify(data)
+            ,type:type
+            ,contentType:'application/json'
+            ,success:function(result){
+                console.log(result);
+                alert(JSON.stringify(result));
+            }});
+    }
+    $("#get").click(function () {
+        requestForUser('get');
+    });
+    $("#post").click(function () {
+        requestForUser('post');
+    });
+    $("#put").click(function () {
+        requestForUser('put');
+    });
+    $("#patch").click(function () {
+        requestForUser('patch');
+    });
+    $("#delete").click(function () {
+        requestForUser('delete');
+    });
+</script>
+
+
+
+</body>
+</html>
