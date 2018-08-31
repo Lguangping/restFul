@@ -17,6 +17,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 
+/**
+ * 这个才是RestFul 的演示类
+ */
 @RestController
 @RequestMapping(path = "/sample", produces = "application/json; charset=UTF-8")
 public class SampleCrudController {
