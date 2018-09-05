@@ -72,4 +72,9 @@ public class SampleCrudController {
         }
     }
 
+    @GetMapping(path = "/error")
+    public Message findError() {
+            return MsgUtil.getErrorMessage();
+    }
+
 }
